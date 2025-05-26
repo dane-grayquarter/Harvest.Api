@@ -913,7 +913,7 @@ namespace Harvest.Api
         {
             foreach (LineItem lineItem in lineItems)
             {
-                lineItem.Id = null;
+                lineItem.Id = 0;
                 lineItem._Destory = null;
             }
             return await UpdateInvoiceItemsAsync(invoiceId, lineItems, accountId, cancellationToken);

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Harvest.Api
@@ -7,10 +9,10 @@ namespace Harvest.Api
     public class Invoice : BaseModel
     {
         public Client Client { get; set; } // An object containing invoice’s client id and name.
-        public LineItem[] LineItems { get; set; } // Array of invoice line items.
-        public IdNameModel Estimate { get; set; } // An object containing the associated estimate’s id.
-        public IdNameModel Retainer { get; set; } // An object containing the associated retainer’s id.
-        public IdNameModel Creator { get; set; } // An object containing the id and name of the person that created the invoice.
+        public List<LineItem> LineItems { get; set; } // Array of invoice line items.
+        public EstimateIdNameModel Estimate { get; set; } // An object containing the associated estimate’s id.
+        public RetainerIdNameModel Retainer { get; set; } // An object containing the associated retainer’s id.
+        public CreatorIdNameModel Creator { get; set; } // An object containing the id and name of the person that created the invoice.
         public string ClientKey { get; set; } // Used to build a URL to the public web invoice for your client:https://{ACCOUNT_SUBDOMAIN}.harvestapp.com/client/invoices/abc123456
         public string Number { get; set; } // If no value is set, the number will be automatically generated.
         public string PurchaseOrder { get; set; } // The purchase order number.
@@ -39,7 +41,8 @@ namespace Harvest.Api
 
     public class LineItem
     {
-        public int? Id { get; set; } // Unique ID for the line item.
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; } // Unique ID for the line item.
         public ProjectReference Project { get; set; } // An object containing the associated project’s id, name, and code.
         public string Kind { get; set; } // The name of an invoice item category.
         public string Description { get; set; } // Text description of the line item.

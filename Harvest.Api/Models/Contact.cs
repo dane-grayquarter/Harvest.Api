@@ -8,7 +8,7 @@ namespace Harvest.Api
 {
     public class Contact : BaseModel
     {
-        public IdNameModel Client {get; set;}
+        public ClientIdNameModel Client {get; set;}
         public string Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
